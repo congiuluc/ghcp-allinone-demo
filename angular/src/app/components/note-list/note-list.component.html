@@ -1,0 +1,87 @@
+<div class="note-list-container">
+  <header class="note-list-header">
+    <h1>📝 Note Taking App</h1>
+    <p>GitHub Copilot Code Suggestions Demo</p>
+  </header>
+
+  <div class="note-creation">
+    <h2>Add New Note</h2>
+    <div class="form-group">
+      <input
+        type="text"
+        [(ngModel)]="newNoteTitle"
+        placeholder="Note title..."
+        class="form-input"
+      />
+    </div>
+    <div class="form-group">
+      <textarea
+        [(ngModel)]="newNoteContent"
+        placeholder="Note content..."
+        class="form-textarea"
+      ></textarea>
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <select [(ngModel)]="newNoteCategory" class="form-select">
+          <option>Personal</option>
+          <option>Work</option>
+          <option>Learning</option>
+          <option>Ideas</option>
+        </select>
+      </div>
+      <div class="form-group checkbox">
+        <label>
+          <input type="checkbox" [(ngModel)]="isImportant" />
+          Mark as important
+        </label>
+      </div>
+    </div>
+    <button (click)="addNote()" class="btn btn-primary">Add Note</button>
+  </div>
+
+  <div class="note-filter">
+    <h3>Filter by Category</h3>
+    <div class="category-buttons">
+      <button
+        *ngFor="let category of getCategories()"
+        (click)="selectedCategory = category; applyFilter()"
+        [class.active]="selectedCategory === category"
+        class="category-btn"
+      >
+        {{ category }}
+      </button>
+    </div>
+  </div>
+
+  <div class="notes-container">
+    <h3>Notes ({{ filteredNotes.length }})</h3>
+    <div *ngIf="filteredNotes.length === 0" class="empty-message">
+      <p>No notes yet. Create one to get started!</p>
+    </div>
+    <div *ngFor="let note of filteredNotes" class="note-card" [class.important]="note.isImportant">
+      <div class="note-header">
+        <h4>{{ note.title }}</h4>
+        <span class="note-category">{{ note.category }}</span>
+      </div>
+      <p class="note-content">{{ note.content }}</p>
+      <div class="note-footer">
+        <button
+          (click)="toggleImportance(note)"
+          [class.starred]="note.isImportant"
+          class="btn btn-icon"
+          title="Toggle importance"
+        >
+          ⭐
+        </button>
+        <button
+          (click)="deleteNote(note.id)"
+          class="btn btn-danger"
+          title="Delete note"
+        >
+          Delete
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
