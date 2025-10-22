@@ -158,6 +158,94 @@ function getCompletionPercentage() {
 
 ---
 
+## 🆕 DEMO 3: Creating Custom Hook + Model from Scratch (5 min)
+
+### Part A: Model Creation
+
+**File**: `src/models/Project.ts`
+
+**Step 1: Define the interface**
+```typescript
+Type:  export interface Project {
+           readonly id: number;
+           name: string;
+           status: 'active' | 'pending' |
+```
+- Copilot suggests: 'completed';
+- Suggests: team: string[];
+- Suggests: progress: number;
+
+**Step 2: Add helper functions**
+```typescript
+Type:  export function isOverdue(project: Project): boolean {
+           return project.endDate <
+```
+- Copilot suggests: new Date();
+
+**Step 3: Add stats interface**
+```typescript
+Type:  export interface ProjectStats {
+           total: number;
+           active:
+```
+- Copilot suggests remaining stat fields
+
+### Part B: Custom Hook Implementation
+
+**File**: `src/hooks/useProjectService.js`
+
+**Step 1: Setup hook with state**
+```javascript
+Type:  export function useProjectService() {
+           const [projects, setProjects] = useState([...]);
+           const [filter, setFilter] = useState('all');
+           
+           const filteredProjects = useMemo(() =>
+```
+- Copilot suggests: projects.filter(p => ...)
+
+**Step 2: Memoized search**
+```javascript
+Type:  const searchProjects = useMemo(() => {
+           return projects.filter(p =>
+```
+- Copilot completes case-insensitive search
+
+**Step 3: Callback for add project**
+```javascript
+Type:  const addProject = useCallback((newProject) => {
+           setProjects(prev => [...prev,
+```
+- Copilot suggests: { ...newProject, id: Date.now() }
+
+**Step 4: Callback for update**
+```javascript
+Type:  const updateProject = useCallback((id, updates) => {
+           setProjects(prev =>
+               prev.map(p =>
+```
+- Copilot suggests: p.id === id ? {...p, ...updates} : p
+
+**Step 5: Memoized aggregation**
+```javascript
+Type:  const getStats = useMemo(() => {
+           return {
+               total: projects.length,
+               active:
+```
+- Copilot completes with filtering for active projects
+
+**Step 6: Return hook object**
+```javascript
+Type:  return {
+           projects: filteredProjects,
+           addProject,
+           updateProject,
+```
+- Copilot suggests all state and memoized values
+
+---
+
 ## 📝 Spec-Driven Example
 
 ### Demo: Add feature from spec

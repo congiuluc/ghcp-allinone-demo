@@ -155,6 +155,99 @@ def get_students_by_gpa_range(min_gpa: float, max_gpa: float):
 
 ---
 
+## 🆕 DEMO 3: Creating Model + Service from Scratch (5 min)
+
+### Part A: Model Creation
+
+**File**: `models/course.py`
+
+**Step 1: Define the class with properties**
+```python
+Type:  def __init__(self, id: int, name: str, credits: int):
+           self.id = id
+           self.name = name
+           self.credits = credits
+```
+- Copilot sees the pattern
+- Suggests: self.is_active = True
+- Suggests: self.created_at = datetime.now()
+
+**Step 2: Add validation method**
+```python
+Type:  def validate_credits(self) -> bool:
+           return self.credits
+```
+- Copilot suggests: >= 1 and self.credits <= 6
+
+**Step 3: Add status method**
+```python
+Type:  def get_status(self) -> str:
+           if self.
+```
+- Copilot suggests: is_active:
+- Then: return "Active"
+
+**Step 4: Add string representation**
+```python
+Type:  def __repr__(self) -> str:
+           return f"Course({self.id}, {self.name},
+```
+- Copilot completes with all properties
+
+### Part B: Route/Service Implementation
+
+**File**: `routes/course_routes.py`
+
+**Step 1: GET all courses endpoint**
+```python
+Type:  @course_bp.route('', methods=['GET'])
+       def get_all_courses():
+           return jsonify([
+```
+- Copilot suggests: c.__dict__ for c in courses])
+- Or: [json.dumps(c) for c in courses]
+
+**Step 2: GET by ID with error handling**
+```python
+Type:  @course_bp.route('/<int:course_id>', methods=['GET'])
+       def get_course(course_id):
+           course = next((c for c in courses if c.id ==
+```
+- Copilot completes: course_id), None)
+- Then: suggests error response if not found
+
+**Step 3: POST create course**
+```python
+Type:  @course_bp.route('', methods=['POST'])
+       def create_course():
+           data = request.get_json()
+           if not data.get('name'):
+               return
+```
+- Copilot suggests: jsonify({'error': 'Name required'}), 400
+
+**Step 4: Search with filter**
+```python
+Type:  @course_bp.route('/search', methods=['GET'])
+       def search_courses():
+           query = request.args.get('q', '').lower()
+           results = [c for c in courses if query in c.name.lower()
+```
+- Copilot suggests: or query in c.description.lower()]
+- Then: return jsonify([c.__dict__ for c in results])
+
+**Step 5: Aggregate stats**
+```python
+Type:  @course_bp.route('/stats', methods=['GET'])
+       def get_stats():
+           return jsonify({
+               'total': len(courses),
+               'active':
+```
+- Copilot calculates: len([c for c in courses if c.is_active])
+
+---
+
 ## 📝 Spec-Driven Example
 
 ### Demo: Create search from spec-first approach

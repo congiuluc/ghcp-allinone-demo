@@ -161,6 +161,99 @@ getSortedNotes(): Observable<Note[]> {
 
 ---
 
+## 🆕 DEMO 3: Creating Model + Service from Scratch (5 min)
+
+### Part A: Model Creation
+
+**File**: `src/app/models/category.model.ts`
+
+**Step 1: Define the interface**
+```typescript
+Type:  export interface Category {
+           readonly id: number;
+           name: string;
+           color: string;
+```
+- Copilot suggests: count: number;
+- Suggests: createdAt: Date;
+- Suggests: updatedAt?: Date;
+
+**Step 2: Add filter interface**
+```typescript
+Type:  export interface CategoryFilter {
+           name?: string;
+           colorRange?:
+```
+- Copilot suggests: string[];
+- Then: minCount?: number;
+
+**Step 3: Add helper functions**
+```typescript
+Type:  export function isRecent(category: Category, days: number = 7): boolean {
+           const diff = new Date().getTime() -
+```
+- Copilot calculates: category.createdAt.getTime();
+
+### Part B: Service Implementation
+
+**File**: `src/app/services/category.service.ts`
+
+**Step 1: Create BehaviorSubject**
+```typescript
+Type:  private categoriesSubject = new BehaviorSubject<Category[]>([...]);
+       public categories$ = this.categoriesSubject.asObservable();
+       
+       getAllCategories(): Observable<Category[]> {
+           return this.categories$.pipe(
+```
+- Copilot suggests: filter(cats => cats.length > 0)
+
+**Step 2: Search operator**
+```typescript
+Type:  searchCategories(searchTerm: string): Observable<Category[]> {
+           const term = searchTerm.toLowerCase();
+           return this.categories$.pipe(
+               map(cats =>
+```
+- Copilot completes: cats.filter(c => c.name.toLowerCase().includes(term))
+
+**Step 3: Filter by property**
+```typescript
+Type:  getCategoriesByColor(color: string): Observable<Category[]> {
+           return this.categories$.pipe(
+               map(cats => cats.filter(c =>
+```
+- Copilot suggests: c.color === color)
+
+**Step 4: Advanced filtering**
+```typescript
+Type:  getPopularCategories(minCount: number = 3): Observable<Category[]> {
+           return this.categories$.pipe(
+               map(cats =>
+                   cats.filter(c => c.count >= minCount)
+                       .sort((a, b) =>
+```
+- Copilot completes: b.count - a.count)
+
+**Step 5: Add/Update with subject**
+```typescript
+Type:  addCategory(category: Category): void {
+           const current = this.categoriesSubject.value;
+           this.categoriesSubject.next([...current,
+```
+- Copilot suggests: {...category, id: current.length + 1}
+
+**Step 6: Delete from subject**
+```typescript
+Type:  deleteCategory(id: number): void {
+           const current = this.categoriesSubject.value;
+           this.categoriesSubject.next(
+               current.filter(c =>
+```
+- Copilot suggests: c.id !== id)
+
+---
+
 ## 📝 Spec-Driven Example
 
 ### Demo: Create service method from spec

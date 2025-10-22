@@ -160,6 +160,98 @@ PROCEDURE DIVISION.
 
 ---
 
+## 🆕 DEMO 3: Creating Calculation Program from Scratch (5 min)
+
+### Build a Complete COBOL Bonus Calculator
+
+**File**: `BONUS_CALCULATOR.cbl`
+
+**Step 1: Create WORKING-STORAGE structure**
+```cobol
+Type:  01 EMPLOYEE-RECORD.
+           05 EMP-ID PIC 9(6).
+           05 EMP-NAME PIC X(30).
+           05 GROSS-SALARY PIC 9(8)V99.
+```
+- Copilot suggests: YEARS-SERVICE PIC 9(2).
+- Suggests: PERFORMANCE-RATING PIC 9.
+- Suggests: IS-MANAGER PIC 9.
+
+**Step 2: Add bonus calculation fields**
+```cobol
+Type:  01 TENURE-BONUS PIC 9(8)V99 VALUE 0.
+       01 PERFORMANCE-BONUS PIC 9(8)V99 VALUE 0.
+```
+- Copilot suggests: MANAGEMENT-BONUS field
+- Then: TOTAL-BONUS field
+- Then: MAX-BONUS-PERCENTAGE constant
+
+**Step 3: Create validation section**
+```cobol
+Type:  VALIDATE-INPUT.
+           IF GROSS-SALARY <= 0
+```
+- Copilot suggests: DISPLAY "Invalid salary"
+- Then: proper termination
+
+**Step 4: Tenure-based bonus calculation**
+```cobol
+Type:  CALCULATE-TENURE-BONUS.
+           EVALUATE TRUE
+               WHEN YEARS-SERVICE > 20
+                   COMPUTE TENURE-BONUS = GROSS-SALARY *
+```
+- Copilot suggests: 0.15
+- Shows: progressive tier structure
+- Completes: all WHEN clauses
+
+**Step 5: Performance rating bonus**
+```cobol
+Type:  CALCULATE-PERFORMANCE-BONUS.
+           EVALUATE PERFORMANCE-RATING
+               WHEN 5
+                   COMPUTE PERFORMANCE-BONUS = GROSS-SALARY *
+```
+- Copilot suggests: 0.20
+- Shows: rating-based calculations
+- Completes: all rating levels
+
+**Step 6: Management bonus with nesting**
+```cobol
+Type:  CALCULATE-MANAGEMENT-BONUS.
+           IF IS-MANAGER = 1
+               COMPUTE MANAGEMENT-BONUS = GROSS-SALARY *
+```
+- Copilot suggests: 0.05
+- Adds: nested condition for department
+- Shows: complex conditional logic
+
+**Step 7: Total calculation with cap**
+```cobol
+Type:  CALCULATE-TOTAL-BONUS.
+           COMPUTE TOTAL-BONUS = 
+               TENURE-BONUS + PERFORMANCE-BONUS + MANAGEMENT-BONUS.
+           IF TOTAL-BONUS > (GROSS-SALARY *
+```
+- Copilot suggests: MAX-BONUS-PERCENTAGE)
+- Then: reduction logic
+
+**Step 8: Formatted output**
+```cobol
+Type:  DISPLAY-RESULTS.
+           DISPLAY "BONUS CALCULATION REPORT".
+           DISPLAY "========================".
+           DISPLAY "Employee: " EMP-NAME.
+           DISPLAY "Salary: " GROSS-SALARY.
+           DISPLAY "Tenure Bonus: " TENURE-BONUS.
+           DISPLAY "Performance Bonus: "
+```
+- Copilot completes: PERFORMANCE-BONUS.
+- Shows: professional formatting
+- Completes: all output lines
+
+---
+
 ## 📝 Spec-Driven Example
 
 ### Demo: Add payroll calculation from spec

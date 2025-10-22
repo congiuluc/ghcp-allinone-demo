@@ -166,6 +166,103 @@ function getBooksByPublishedDateRange(startDate: Date, endDate: Date): Book[] {
 
 ---
 
+## 🆕 DEMO 3: Creating Model + Service from Scratch (5 min)
+
+### Part A: Model Creation
+
+**File**: `src/models/Author.ts`
+
+**Step 1: Define the interface**
+```typescript
+Type:  export interface Author {
+           id: number;
+           name: string;
+           email: string;
+```
+- Copilot sees pattern
+- Suggests: birthDate: Date;
+- Suggests: isActive: boolean;
+- Suggests: createdAt: Date;
+
+**Step 2: Add status enum**
+```typescript
+Type:  export enum AuthorStatus {
+           Active = 'Active',
+           Retired =
+```
+- Copilot suggests: 'Retired'
+- Then: Emerging = 'Emerging'
+
+**Step 3: Add helper function**
+```typescript
+Type:  export function getAuthorAge(author: Author): number {
+           const today = new Date();
+           return today.getFullYear() -
+```
+- Copilot suggests: author.birthDate.getFullYear();
+
+**Step 4: Add validation function**
+```typescript
+Type:  export function isProductive(author: Author, 
+           booksPerYear: number = 2): boolean {
+           return author.
+```
+- Copilot suggests: isActive && ...
+
+### Part B: Service Implementation
+
+**File**: `src/services/authorService.ts`
+
+**Step 1: GET all authors**
+```typescript
+Type:  export function getAllAuthors(): Author[] {
+           return authors.sort((a, b) =>
+```
+- Copilot suggests: a.name.localeCompare(b.name));
+
+**Step 2: Find by ID**
+```typescript
+Type:  export function getAuthorById(id: number): Author | undefined {
+           return authors.find(a =>
+```
+- Copilot suggests: a.id === id);
+
+**Step 3: Search authors**
+```typescript
+Type:  export function searchAuthors(searchTerm: string): Author[] {
+           const term = searchTerm.toLowerCase();
+           return authors.filter(a =>
+```
+- Copilot suggests: a.name.toLowerCase().includes(term));
+
+**Step 4: Filter by status**
+```typescript
+Type:  export function getAuthorsByStatus(status: AuthorStatus): Author[] {
+           return authors
+               .filter(a =>
+```
+- Copilot suggests: a.isActive && a.status === status)
+- Then: .sort((a, b) => a.name.localeCompare(b.name));
+
+**Step 5: Group by status**
+```typescript
+Type:  export function groupAuthorsByStatus(): Map<AuthorStatus, Author[]> {
+           return authors.reduce((map, author) => {
+               if (!map.has(author.status))
+```
+- Copilot completes the grouping logic
+
+**Step 6: Get statistics**
+```typescript
+Type:  export function getAuthorStats(): { total: number; active: number } {
+           return {
+               total: authors.length,
+               active:
+```
+- Copilot suggests: authors.filter(a => a.isActive).length
+
+---
+
 ## 📝 Spec-Driven Example
 
 ### Demo: Create method from JSDoc spec

@@ -147,6 +147,93 @@ public async Task<IEnumerable<Product>> GetAvailableProductsAsync()
 
 ---
 
+## 🆕 DEMO 3: Creating Model + Service from Scratch (5 min)
+
+### Part A: Model Creation
+
+**File**: `Models/Category.cs`
+
+**Step 1: Add properties with getters/setters**
+```csharp
+Type:  public int Id { get; set; }
+       public string? Name { get; set; }
+```
+- Copilot sees the pattern
+- Suggests: Description, IsActive, CreatedAt, UpdatedAt properties
+- Proper nullable typing
+
+**Step 2: Add constructor**
+```csharp
+Type:  public Category(string? name)
+       {
+           Name = name;
+```
+- Copilot suggests field assignments
+- Adds: CreatedAt = DateTime.Now;
+
+**Step 3: Override ToString()**
+```csharp
+Type:  public override string ToString()
+       {
+           return $"Category{{"
+```
+- Copilot suggests formatted output string
+
+### Part B: Service Implementation
+
+**File**: `Services/CategoryService.cs`
+
+**Step 1: Method signatures**
+```csharp
+Type:  public async Task<IEnumerable<Category>> GetAllCategoriesAsync()
+       {
+           return await _context.Categories
+```
+- Copilot suggests: .OrderBy(c => c.Name).ToListAsync();
+
+**Step 2: Find by ID with null handling**
+```csharp
+Type:  public async Task<Category?> GetCategoryByIdAsync(int id)
+       {
+           return await _context.Categories
+               .FirstOrDefaultAsync(c =>
+```
+- Copilot completes: c.Id == id);
+
+**Step 3: Create with validation**
+```csharp
+Type:  public async Task<Category> CreateCategoryAsync(Category category)
+       {
+           if (string.IsNullOrWhiteSpace(category.Name))
+               throw new
+```
+- Copilot suggests: ArgumentException("Name required");
+- Then: _context.Categories.Add(category);
+- Then: await _context.SaveChangesAsync();
+
+**Step 4: Search with LINQ**
+```csharp
+Type:  public async Task<IEnumerable<Category>> SearchCategoriesAsync(string term)
+       {
+           var search = term.ToLower();
+           return await _context.Categories
+               .Where(c => c.Name.ToLower().Contains(search))
+```
+- Copilot suggests: .OrderBy(c => c.Name).ToListAsync();
+
+**Step 5: Async patterns**
+```csharp
+Type:  public async Task<bool> DeleteCategoryAsync(int id)
+       {
+           var category = await _context.Categories
+               .FindAsync(id);
+           if (category == null)
+```
+- Copilot suggests: return false;
+- Then: proper deletion flow
+
+---
+
 ## 📝 Spec-Driven Example
 
 ### Demo: Create filtering method from spec
