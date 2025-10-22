@@ -285,7 +285,61 @@ CALCULATE-BONUS.
 
 ---
 
-## 🚀 Full Demo Script (15 minutes)
+## 🆕 DEMO 5: Pattern Matching & String Validation (3 min)
+
+### Validate Data Patterns in COBOL
+
+**File**: `PROGRAM.cbl` or new program
+
+**Step 1: Add string inspection**
+```cobol
+Type:       01 INPUT-VALIDATION.
+                05 PHONE-FORMAT PIC X(12) VALUE "###-###-####".
+                05 INPUT-PHONE PIC X(12).
+                05 VALID-PHONE PIC 9 VALUE 0.
+```
+
+**Step 2: Create validation paragraph**
+```cobol
+Type:  VALIDATE-PHONE-NUMBER.
+           IF INPUT-PHONE NOT = SPACES
+               IF INPUT-PHONE(4:1) = "-" AND
+                  INPUT-PHONE(8:1) = "-"
+```
+
+**Copilot suggests:**
+```cobol
+IF INPUT-PHONE(4:1) = "-" AND
+   INPUT-PHONE(8:1) = "-"
+    MOVE 1 TO VALID-PHONE
+ELSE
+    MOVE 0 TO VALID-PHONE
+END-IF.
+```
+
+**Step 3: Email-like pattern**
+```cobol
+Type:  VALIDATE-EMAIL.
+           IF INPUT-EMAIL(1:1) NOT = "@"
+               PERFORM UNTIL
+```
+
+**Copilot suggests:**
+```cobol
+PERFORM UNTIL INPUT-EMAIL(AT-POS:1) = "@" OR AT-POS > EMAIL-LENGTH
+    ADD 1 TO AT-POS
+END-PERFORM.
+```
+
+**Teaching points:**
+- String positions in COBOL
+- Character inspection
+- EVALUATE for patterns
+- Data validation patterns
+
+---
+
+## 🚀 Full Demo Script (18 minutes)
 
 ### Opening (1 min)
 > "COBOL powers trillions of dollars in transactions daily. Copilot now understands COBOL syntax. Watch how it handles structured calculations and legacy code patterns."

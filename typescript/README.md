@@ -298,7 +298,67 @@ return books
 
 ---
 
-## 🚀 Full Demo Script (15 minutes)
+## 🆕 DEMO 5: Regex Pattern Matching & Validation (3 min)
+
+### Validate with TypeScript Regex
+
+**File**: `src/services/bookService.ts` or new `utils/validators.ts`
+
+**Step 1: Define pattern and validator**
+```typescript
+Type:  const EMAIL_PATTERN = /^[A-Za-z0-9+_.-]+@(.+)$/;
+       
+       export function isValidEmail(email: string): boolean {
+           return EMAIL_PATTERN.test(
+```
+
+**Copilot suggests:**
+```typescript
+return EMAIL_PATTERN.test(email);
+```
+
+**Step 2: ISBN validation pattern**
+```typescript
+Type:  const ISBN_PATTERN = /^(?:ISBN(?:-1[03])?:? )?(?=[0-9X]{10}$|
+```
+
+**Copilot suggests:**
+```typescript
+const ISBN_PATTERN = /^(?:ISBN(?:-1[03])?:? )?(?=[0-9X]{10}$|(?=(?:[0-9]+[- ]){3})[- 0-9X]{13}$|97[89][0-9]{10}$|(?=(?:[0-9]+[- ]){4})[- 0-9]{17}$)(?:97[89][- ]?)?[0-9]{1,5}[- ]?[0-9]+[- ]?[0-9]+[- ]?[X0-9]$/;
+```
+
+**Step 3: Extract with regex**
+```typescript
+Type:  export function extractDomain(email: string): string | null {
+           const match = email.match(/@(.+)$/);
+           return match ?
+```
+
+**Copilot suggests:**
+```typescript
+return match ? match[1] : null;
+```
+
+**Step 4: Filter with validators**
+```typescript
+Type:  export function getValidBooks(books: Book[]): Book[] {
+           return books.filter(b =>
+```
+
+**Copilot suggests:**
+```typescript
+return books.filter(b => isValidEmail(b.authorEmail) && isValidISBN(b.isbn));
+```
+
+**Teaching points:**
+- JavaScript RegExp (not string-based)
+- `.test()` vs `.match()` vs `.exec()`
+- Type-safe validators
+- Integration with array methods
+
+---
+
+## 🚀 Full Demo Script (18 minutes)
 
 ### Opening (1 min)
 > "TypeScript adds type safety to JavaScript. Copilot understands TypeScript types perfectly. Watch how it handles array methods with proper typing."

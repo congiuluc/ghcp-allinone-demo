@@ -271,7 +271,57 @@ return await _context.Products
 
 ---
 
-## 🚀 Full Demo Script (15 minutes)
+## 🆕 DEMO 5: Regex Pattern Matching & Validation (3 min)
+
+### Validate Email with C# Regex
+
+**File**: `Services/CategoryService.cs` or new class
+
+**Step 1: Define validation method**
+```csharp
+Type:  public bool IsValidEmail(string email)
+       {
+           var pattern = @"^[A-Za-z0-9+_.-]+@(.+)$";
+           return Regex.IsMatch(email,
+```
+
+**Copilot suggests:**
+```csharp
+return Regex.IsMatch(email, pattern);
+```
+
+**Step 2: More complex pattern - URL validation**
+```csharp
+Type:  public bool IsValidUrl(string url)
+       {
+           var urlPattern = @"^(https?://)?
+```
+
+**Copilot suggests:**
+```csharp
+var urlPattern = @"^(https?://)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)$";
+return Regex.IsMatch(url, urlPattern);
+```
+
+**Step 3: Use in LINQ**
+```csharp
+Type:  var validEmails = categories.Where(c =>
+```
+
+**Copilot suggests:**
+```csharp
+var validEmails = categories.Where(c => IsValidEmail(c.Name)).ToList();
+```
+
+**Teaching points:**
+- C# Regex class
+- @ symbol for raw strings (no escaping)
+- Integration with LINQ
+- Reusable validators
+
+---
+
+## 🚀 Full Demo Script (18 minutes)
 
 ### Opening (1 min)
 > "C# has strong typing and modern async patterns. Copilot understands all of this. Watch how it handles LINQ with Entity Framework."

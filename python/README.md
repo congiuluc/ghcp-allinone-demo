@@ -281,7 +281,71 @@ active_dept_students = [s for s in students if
 
 ---
 
-## 🚀 Full Demo Script (15 minutes)
+## 🆕 DEMO 5: Regex Pattern Matching & Validation (3 min)
+
+### Validate Data with Python Regex
+
+**File**: `utils/helpers.py` or `models/course.py`
+
+**Step 1: Import and define pattern**
+```python
+Type:  import re
+       
+       EMAIL_PATTERN = r"^[A-Za-z0-9+_.-]+@(.+)$"
+       
+       def is_valid_email(email: str) -> bool:
+           return re.match(EMAIL_PATTERN,
+```
+
+**Copilot suggests:**
+```python
+return re.match(EMAIL_PATTERN, email) is not None
+```
+
+**Step 2: Phone number pattern**
+```python
+Type:  PHONE_PATTERN = r"^\d{3}-\d{3}-\d{4}$"
+       
+       def is_valid_phone(phone: str) -> bool:
+           return bool(re.match(PHONE_PATTERN,
+```
+
+**Copilot suggests:**
+```python
+return bool(re.match(PHONE_PATTERN, phone))
+```
+
+**Step 3: Use in list comprehension**
+```python
+Type:  valid_students = [s for s in students if
+```
+
+**Copilot suggests:**
+```python
+valid_students = [s for s in students if is_valid_email(s.get('email'))]
+```
+
+**Step 4: More complex - Extract pattern**
+```python
+Type:  def extract_domain(email: str) -> str:
+           match = re.match(r"^[^@]+@(.+)$",
+```
+
+**Copilot suggests:**
+```python
+match = re.match(r"^[^@]+@(.+)$", email)
+return match.group(1) if match else None
+```
+
+**Teaching points:**
+- Python `re` module
+- Raw strings (r"...") to avoid escaping
+- `re.match()` vs `re.search()` vs `re.findall()`
+- Integration with data processing
+
+---
+
+## 🚀 Full Demo Script (18 minutes)
 
 ### Opening (1 min)
 > "Python has clean syntax. Copilot understands Python idioms well. Watch how it handles Flask queries and list comprehensions."

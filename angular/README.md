@@ -290,7 +290,62 @@ return this.notes$.pipe(
 
 ---
 
-## 🚀 Full Demo Script (15 minutes)
+## 🆕 DEMO 5: Regex Pattern Matching & Validation (3 min)
+
+### Validate in Angular Services
+
+**File**: `src/app/services/category.service.ts` or `utils/validators.ts`
+
+**Step 1: Define validator**
+```typescript
+Type:  export const VALIDATION_PATTERNS = {
+           email: /^[A-Za-z0-9+_.-]+@(.+)$/,
+           url: /^(https?:\/\/)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)$/,
+           slug: /^[a-z0-9]+(?:-[a-z0-9]+)*$/
+       };
+       
+       export function isValidEmail(email: string): boolean {
+           return VALIDATION_PATTERNS.email.test(
+```
+
+**Copilot suggests:**
+```typescript
+return VALIDATION_PATTERNS.email.test(email);
+```
+
+**Step 2: Use with RxJS operators**
+```typescript
+Type:  public validateEmails(emails: string[]): Observable<boolean> {
+           return of(emails).pipe(
+               map(items => items.every(email =>
+```
+
+**Copilot suggests:**
+```typescript
+map(items => items.every(email => isValidEmail(email)))
+```
+
+**Step 3: Filter with validation**
+```typescript
+Type:  public getValidCategories(): Observable<Category[]> {
+           return this.categories$.pipe(
+               filter(cats => cats.every(c =>
+```
+
+**Copilot suggests:**
+```typescript
+filter(cats => cats.every(c => VALIDATION_PATTERNS.slug.test(c.name)))
+```
+
+**Teaching points:**
+- TypeScript constants for regex
+- Integration with RxJS
+- Reusable validators
+- Observable chains
+
+---
+
+## 🚀 Full Demo Script (18 minutes)
 
 ### Opening (1 min)
 > "Angular uses RxJS for reactive programming. Copilot understands Observables and operators perfectly. Watch how it chains pipe operations."

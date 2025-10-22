@@ -280,7 +280,76 @@ return todos
 
 ---
 
-## 🚀 Full Demo Script (15 minutes)
+## 🆕 DEMO 5: Regex Pattern Matching & Validation (3 min)
+
+### Validate in React Components
+
+**File**: `src/utils/validators.js` or component
+
+**Step 1: Create validation function**
+```javascript
+Type:  export const EMAIL_REGEX = /^[A-Za-z0-9+_.-]+@(.+)$/;
+       
+       export function isValidEmail(email) {
+           return EMAIL_REGEX.test(
+```
+
+**Copilot suggests:**
+```javascript
+return EMAIL_REGEX.test(email);
+```
+
+**Step 2: Password validation with strength**
+```javascript
+Type:  export const PASSWORD_REGEX = {
+           uppercase: /[A-Z]/,
+           lowercase: /[a-z]/,
+           number: /[0-9]/,
+           special: /[!@#$%^&*]/
+       };
+       
+       export function validatePassword(pwd) {
+           return Object.values(PASSWORD_REGEX).every(regex =>
+```
+
+**Copilot suggests:**
+```javascript
+return Object.values(PASSWORD_REGEX).every(regex => regex.test(pwd));
+```
+
+**Step 3: Use in component state**
+```javascript
+Type:  const [email, setEmail] = useState('');
+       const isValid = useMemo(() =>
+```
+
+**Copilot suggests:**
+```javascript
+const isValid = useMemo(() => isValidEmail(email), [email]);
+```
+
+**Step 4: Display validation UI**
+```javascript
+Type:  <input
+           type="email"
+           onChange={(e) => setEmail(e.target.value)}
+           className={isValid ? 'valid' :
+```
+
+**Copilot suggests:**
+```javascript
+className={isValid ? 'valid' : 'invalid'}
+```
+
+**Teaching points:**
+- JavaScript regex in React
+- Integration with useState/useMemo
+- Real-time validation
+- User feedback patterns
+
+---
+
+## 🚀 Full Demo Script (18 minutes)
 
 ### Opening (1 min)
 > "React has hooks and JSX. Copilot understands both perfectly. Watch how it handles component state, filtering, and rendering."
