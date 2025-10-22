@@ -99,58 +99,31 @@ export class BookController {
     }
   };
 
-  // DEMO Step 1: Generate endpoint for available books
+  // DEMO 1: Type the implementation
+  // Hint: Start with: const books = this.bookService.getAvailableBooks();
   getAvailableBooks = (req: Request, res: Response): void => {
     try {
-      /**
-       * Instructions for Copilot:
-       * "Generate a handler that:
-       * - Calls this.bookService.getAvailableBooks()
-       * - Returns 200 status with the books array
-       * - Has try/catch error handling with 500 status"
-       */
-      // TODO: Let Copilot suggest the implementation
-      throw new Error('TODO: Implement with Copilot suggestion');
+      // TODO: DEMO - Type the implementation
     } catch (error) {
       res.status(500).json({ error: 'Failed to retrieve available books' });
     }
   };
 
-  // DEMO Step 2: Generate endpoint for search books
+  // DEMO 2: Type the implementation
+  // Hint: Start with: const filters = { author: req.query.author, ...
   searchBooks = (req: Request, res: Response): void => {
     try {
-      /**
-       * Instructions for Copilot:
-       * "Generate a handler that:
-       * - Extracts query parameters: author, year, minYear, maxYear, isAvailable
-       * - Builds filter object from provided parameters
-       * - Calls this.bookService.searchBooks(filters)
-       * - Returns 200 status with the results
-       * - Returns 400 if both year and year range are provided
-       * - Has error handling with 500 status"
-       */
-      // TODO: Let Copilot suggest the implementation
-      throw new Error('TODO: Implement with Copilot suggestion');
+      // TODO: DEMO - Type the implementation
     } catch (error) {
       res.status(500).json({ error: 'Failed to search books' });
     }
   };
 
-  // DEMO Step 3: Generate endpoint for date range search
+  // DEMO 3: Type the implementation
+  // Hint: Start with: const startYear = parseInt(req.query.startYear as string);
   getBooksByDateRange = (req: Request, res: Response): void => {
     try {
-      /**
-       * Instructions for Copilot:
-       * "Generate a handler that:
-       * - Gets startYear and endYear from query parameters
-       * - Validates both are valid numbers
-       * - Returns 400 if validation fails
-       * - Calls this.bookService.getBooksByPublishedDateRange(startYear, endYear)
-       * - Returns 200 with sorted results
-       * - Has error handling"
-       */
-      // TODO: Let Copilot suggest the implementation
-      throw new Error('TODO: Implement with Copilot suggestion');
+      // TODO: DEMO - Type the implementation
     } catch (error) {
       res.status(500).json({ error: 'Failed to retrieve books' });
     }

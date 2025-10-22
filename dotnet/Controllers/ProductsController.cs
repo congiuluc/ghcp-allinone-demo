@@ -94,56 +94,32 @@ public class ProductsController : ControllerBase
         return Ok(products);
     }
 
-    /// <summary>
-    /// DEMO Step 1: Generate endpoint for available products
-    /// 
-    /// Instructions for Copilot:
-    /// "Generate a HttpGet endpoint called GetAvailableProducts that:
-    /// - Calls _productService.GetAvailableProductsAsync()
-    /// - Returns Ok with the products
-    /// - Handles errors with appropriate status codes"
-    /// </summary>
+    /// DEMO 1: Type the implementation
+    /// Hint: Start with: var products = await _productService.GetAvailableProductsAsync();
     [HttpGet("filter/available")]
     public async Task<ActionResult<IEnumerable<Product>>> GetAvailableProducts()
     {
-        // TODO: Let Copilot suggest the implementation
-        throw new NotImplementedException("TODO: Implement with Copilot suggestion");
+        // TODO: DEMO - Type the implementation
+        return Ok(new List<Product>());
     }
 
-    /// <summary>
-    /// DEMO Step 2: Generate endpoint for price range search
-    /// 
-    /// Instructions for Copilot:
-    /// "Generate a HttpGet endpoint that:
-    /// - Accepts query parameters minPrice and maxPrice
-    /// - Calls GetProductsByPriceRangeAsync
-    /// - Validates that minPrice less than maxPrice
-    /// - Returns BadRequest if validation fails
-    /// - Returns Ok with matching products"
-    /// </summary>
+    /// DEMO 2: Type the implementation
+    /// Hint: Start with: if (minPrice > maxPrice) return BadRequest(...);
     [HttpGet("search/price-range")]
     public async Task<ActionResult<IEnumerable<Product>>> GetProductsByPriceRange(
         [FromQuery] decimal minPrice,
         [FromQuery] decimal maxPrice)
     {
-        // TODO: Let Copilot suggest the implementation
-        throw new NotImplementedException("TODO: Implement with Copilot suggestion");
+        // TODO: DEMO - Type the implementation
+        return Ok(new List<Product>());
     }
 
-    /// <summary>
-    /// DEMO Step 3: Generate search endpoint
-    /// 
-    /// Instructions for Copilot:
-    /// "Generate a HttpGet endpoint called SearchProducts that:
-    /// - Accepts query parameter 'query'
-    /// - Calls _productService.SearchProductsAsync(query)
-    /// - Returns NotFound if query is empty
-    /// - Returns Ok with matching products"
-    /// </summary>
+    /// DEMO 3: Type the implementation
+    /// Hint: Start with: if (string.IsNullOrEmpty(query)) return BadRequest(...);
     [HttpGet("search")]
     public async Task<ActionResult<IEnumerable<Product>>> SearchProducts([FromQuery] string query)
     {
-        // TODO: Let Copilot suggest the implementation
-        throw new NotImplementedException("TODO: Implement with Copilot suggestion");
+        // TODO: DEMO - Type the implementation
+        return Ok(new List<Product>());
     }
 }

@@ -49,31 +49,16 @@ class Student(db.Model):
             is_active=data.get('is_active', True)
         )
 
-    # DEMO Step 1: Generate instance method to check honor student
+    # DEMO 1: Type the implementation
+    # Hint: Start with: return self.gpa >= 3.5
     def is_honor_student(self):
-        """
-        DEMO: Check if student is honor student
-        
-        Instructions for Copilot:
-        "Generate a method that:
-        - Returns True if GPA is 3.5 or higher
-        - Returns False otherwise
-        - Add docstring explaining honor student criteria"
-        """
-        # TODO: Let Copilot suggest the implementation
-        raise NotImplementedError("TODO: Implement with Copilot suggestion")
+        """Check if student is honor student (GPA >= 3.5)"""
+        # TODO: DEMO - Type the implementation
+        pass
 
-    # DEMO Step 2: Generate method to get class year
+    # DEMO 2: Type the implementation
+    # Hint: Start with: from datetime import datetime
     def get_year_of_study(self):
-        """
-        DEMO: Calculate year of study
-        
-        Instructions for Copilot:
-        "Generate a method that:
-        - Calculates years since created_at date
-        - Returns year as integer (1-4)
-        - Caps at 4 for 4th year
-        - Uses datetime calculations"
-        """
-        # TODO: Let Copilot suggest the implementation
-        raise NotImplementedError("TODO: Implement with Copilot suggestion")
+        """Calculate year of study (1-4)"""
+        # TODO: DEMO - Type the implementation
+        pass
