@@ -48,6 +48,21 @@ def create_student():
         if not data or not all(k in data for k in ['name', 'email', 'major']):
             return jsonify({'error': 'Missing required fields'}), 400
         
+        # Validate email format
+        import re
+        email_regex = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
+        if not re.match(email_regex, data['email']):
+            return jsonify({'error': 'Invalid email format'}), 400
+        
+        # Validate GPA if provided
+        if 'gpa' in data:
+            try:
+                gpa = float(data['gpa'])
+                if gpa < 0.0 or gpa > 4.0:
+                    return jsonify({'error': 'GPA must be between 0.0 and 4.0'}), 400
+            except (ValueError, TypeError):
+                return jsonify({'error': 'Invalid GPA value'}), 400
+        
         # Check if email already exists
         existing = Student.query.filter_by(email=data['email']).first()
         if existing:
@@ -78,6 +93,11 @@ def update_student(student_id):
         if 'name' in data:
             student.name = data['name']
         if 'email' in data:
+            # Validate email format
+            import re
+            email_regex = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
+            if not re.match(email_regex, data['email']):
+                return jsonify({'error': 'Invalid email format'}), 400
             # Check if new email is unique
             existing = Student.query.filter_by(email=data['email']).first()
             if existing and existing.id != student_id:
@@ -86,7 +106,13 @@ def update_student(student_id):
         if 'major' in data:
             student.major = data['major']
         if 'gpa' in data:
-            student.gpa = data['gpa']
+            try:
+                gpa = float(data['gpa'])
+                if gpa < 0.0 or gpa > 4.0:
+                    return jsonify({'error': 'GPA must be between 0.0 and 4.0'}), 400
+                student.gpa = gpa
+            except (ValueError, TypeError):
+                return jsonify({'error': 'Invalid GPA value'}), 400
         if 'is_active' in data:
             student.is_active = data['is_active']
         
