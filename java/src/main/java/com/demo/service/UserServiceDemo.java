@@ -33,7 +33,7 @@ public class UserServiceDemo {
      */
     public List<User> getActiveUsers() {
         // DEMO TODO: Delete implementation and type above
-        // return getAllUsers().stream().filter(u -> u.getIsActive()).toList();
+        return getAllUsers().stream().filter(u -> u.getIsActive()).collect(java.util.stream.Collectors.toList());
     }
 
     /**
@@ -43,10 +43,10 @@ public class UserServiceDemo {
      */
     public List<User> getActiveUsersByDepartment(String department) {
         // DEMO TODO: Delete implementation and type above
-        // return getAllUsers().stream()
-        //    .filter(u -> u.getIsActive())
-        //    .filter(u -> u.getDepartment().equals(department))
-        //    .toList();
+        return getAllUsers().stream()
+            .filter(u -> u.getIsActive())
+            .filter(u -> u.getDepartment().equals(department))
+            .collect(java.util.stream.Collectors.toList());
     }
 
     /**
@@ -56,7 +56,7 @@ public class UserServiceDemo {
      */
     public List<String> getUserNames() {
         // DEMO TODO: Delete implementation and type above
-        return getAllUsers().stream().map(u -> u.getName()).toList();
+        return getAllUsers().stream().map(u -> u.getName()).collect(java.util.stream.Collectors.toList());
     }
 
     /**
@@ -66,11 +66,11 @@ public class UserServiceDemo {
      */
     public java.util.Map<String, Long> getDepartmentStatistics() {
         // DEMO TODO: Delete implementation and type above
-        // return getAllUsers().stream()
-        //    .collect(java.util.stream.Collectors.groupingBy(
-        //        User::getDepartment,
-        //        java.util.stream.Collectors.counting()
-        //    ));
+        return getAllUsers().stream()
+            .collect(java.util.stream.Collectors.groupingBy(
+                User::getDepartment,
+                java.util.stream.Collectors.counting()
+            ));
     }
 
     private List<User> getAllUsers() {

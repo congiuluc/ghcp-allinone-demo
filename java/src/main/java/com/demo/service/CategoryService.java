@@ -20,29 +20,46 @@ public class CategoryService {
     
     public List<Category> getAllCategories() {
         // TODO: Implement
+        return categoryRepository.findAll();
     }
     
     public Optional<Category> getCategoryById(int id) {
         // TODO: Implement
+        return categoryRepository.findById(id);
     }
     
     public Category createCategory(Category category) {
         // TODO: Implement
+        return categoryRepository.save(category);
     }
     
     public Optional<Category> updateCategory(int id, Category category) {
         // TODO: Implement
+        return categoryRepository.findById(id).map(existing -> {
+            existing.setName(category.getName());
+            existing.setDescription(category.getDescription());
+            existing.setActive(category.isActive());
+            existing.setUpdatedAt(java.time.LocalDateTime.now());
+            return categoryRepository.save(existing);
+        });
     }
     
     public boolean deleteCategory(int id) {
         // TODO: Implement
+        if (categoryRepository.existsById(id)) {
+            categoryRepository.deleteById(id);
+            return true;
+        }
+        return false;
     }
     
     public List<Category> searchCategories(String searchTerm) {
         // TODO: Implement
+        return categoryRepository.searchByName(searchTerm);
     }
     
     public List<Category> getActiveCategories() {
         // TODO: Implement
+        return categoryRepository.findByIsActiveTrue();
     }
 }

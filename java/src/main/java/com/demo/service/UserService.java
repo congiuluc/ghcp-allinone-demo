@@ -100,6 +100,7 @@ public class UserService {
      */
     public List<User> getActiveUsersByDepartment(String department) {
         // TODO: DEMO - Type the implementation
+        return userRepository.findByDepartmentAndIsActiveTrue(department);
     }
 
     /**
@@ -109,6 +110,10 @@ public class UserService {
      */
     public List<User> searchUsers(String searchTerm, String department) {
         // TODO: DEMO - Type the implementation
+        return getAllUsers().stream()
+            .filter(user -> user.getName().toLowerCase().contains(searchTerm.toLowerCase()) &&
+                          user.getDepartment().equalsIgnoreCase(department))
+            .collect(java.util.stream.Collectors.toList());
     }
 
     /**
@@ -118,5 +123,10 @@ public class UserService {
      */
     public java.util.Map<String, Long> getDepartmentStatistics() {
         // TODO: DEMO - Type the implementation
+        return getAllUsers().stream()
+            .collect(java.util.stream.Collectors.groupingBy(
+                User::getDepartment,
+                java.util.stream.Collectors.counting()
+            ));
     }
 }

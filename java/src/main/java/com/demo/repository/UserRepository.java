@@ -24,4 +24,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     @Query("SELECT u FROM User u WHERE u.department = :department AND u.isActive = true")
     List<User> findActiveUsersByDepartment(@Param("department") String department);
+
+    List<User> findByDepartmentAndIsActiveTrue(String department);
 }
