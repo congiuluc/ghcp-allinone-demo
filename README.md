@@ -1,6 +1,6 @@
 # GitHub Copilot Code Suggestions Demo
 
-Demo repository for GitHub Copilot **code completions** (not chat mode) across 8 programming languages.
+Demo repository for GitHub Copilot **code completions** (not chat mode) across multiple programming languages and Infrastructure as Code.
 
 ## 🎯 How It Works
 
@@ -21,12 +21,13 @@ Demo repository for GitHub Copilot **code completions** (not chat mode) across 8
 | **React** | React 18 | `react/` | Read `react/README.md` |
 | **Angular** | Angular 17 | `angular/` | Read `angular/README.md` |
 | **COBOL** | GnuCOBOL | `cobol/` | Read `cobol/README.md` |
+| **Terraform** | IaC | `terraform/` | Read `terraform/README.md` |
 
 ## 🚀 Quick Start
 
 ```bash
 # 1. Choose a language and navigate to it
-cd java  # or dotnet, python, typescript, react, angular, cobol
+cd java  # or dotnet, python, typescript, react, angular, cobol, terraform
 
 # 2. Read the setup instructions
 # (See README.md in that folder for build/run commands)
