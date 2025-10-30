@@ -98,6 +98,22 @@ dist/
 *.so
 .deps/
 
+## Terraform
+.terraform/
+.terraform.lock.hcl
+*.tfstate
+*.tfstate.*
+*.tfplan
+*.tfvars
+.terraformrc
+terraform.rc
+crash.log
+crash.*.log
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+
 # OS & Temporary Files
 Thumbs.db
 .Thumbs.db
