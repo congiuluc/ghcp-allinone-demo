@@ -19,7 +19,9 @@ app.config['JSON_SORT_KEYS'] = False
 
 # Initialize extensions
 db = SQLAlchemy(app)
-CORS(app)
+# Configure CORS - Allow specific origins in production
+allowed_origins = os.getenv('ALLOWED_ORIGINS', 'http://localhost:3000,http://localhost:5173').split(',')
+CORS(app, origins=allowed_origins)
 
 # Import models and routes after app initialization
 from models.student import Student
@@ -64,4 +66,6 @@ if __name__ == '__main__':
         db.create_all()
     
     # Run the app
-    app.run(debug=True, host='0.0.0.0', port=5000)
+    # Note: debug mode should be disabled in production
+    debug_mode = os.getenv('FLASK_DEBUG', 'False').lower() in ('true', '1', 't')
+    app.run(debug=debug_mode, host='0.0.0.0', port=5000)
