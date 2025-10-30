@@ -90,6 +90,7 @@ export class BookService {
   // Watch Copilot suggest the property check
   getAvailableBooks(): Book[] {
     // TODO: DEMO - Type the implementation
+    return this.books.filter(book => book.isAvailable);
   }
 
   // DEMO 2: Type the implementation
@@ -103,6 +104,24 @@ export class BookService {
     isAvailable?: boolean;
   }): Book[] {
     // TODO: DEMO - Type the implementation
+    return this.books.filter(book => {
+      if (filters.author && !book.author.toLowerCase().includes(filters.author.toLowerCase())) {
+        return false;
+      }
+      if (filters.year && book.publishedYear !== filters.year) {
+        return false;
+      }
+      if (filters.minYear && book.publishedYear < filters.minYear) {
+        return false;
+      }
+      if (filters.maxYear && book.publishedYear > filters.maxYear) {
+        return false;
+      }
+      if (filters.isAvailable !== undefined && book.isAvailable !== filters.isAvailable) {
+        return false;
+      }
+      return true;
+    });
   }
 
   // DEMO 3: Type the implementation
@@ -110,6 +129,12 @@ export class BookService {
   // Watch Copilot suggest the validation and filter
   getBooksByPublishedDateRange(startYear: number, endYear: number): Book[] {
     // TODO: DEMO - Type the implementation
+    if (startYear > endYear) {
+      throw new Error('Start year must be less than or equal to end year');
+    }
+    return this.books.filter(book => 
+      book.publishedYear >= startYear && book.publishedYear <= endYear
+    );
   }
 
   getBooksByYear(year: number): Book[] {
