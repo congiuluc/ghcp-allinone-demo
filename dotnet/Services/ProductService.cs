@@ -78,6 +78,9 @@ public class ProductService : IProductService
     public async Task<IEnumerable<Product>> GetAvailableProductsAsync()
     {
         // TODO: DEMO - Type the implementation
+        return await _context.Products
+            .Where(p => p.IsAvailable)
+            .ToListAsync();
     }
 
     /// <summary>
@@ -88,6 +91,9 @@ public class ProductService : IProductService
     public async Task<IEnumerable<Product>> GetProductsByPriceRangeAsync(decimal minPrice, decimal maxPrice)
     {
         // TODO: DEMO - Type the implementation
+        return await _context.Products
+            .Where(p => p.Price >= minPrice && p.Price <= maxPrice)
+            .ToListAsync();
     }
 
     /// <summary>
@@ -98,5 +104,8 @@ public class ProductService : IProductService
     public async Task<IEnumerable<Product>> SearchProductsAsync(string searchTerm)
     {
         // TODO: DEMO - Type the implementation
+        return await _context.Products
+            .Where(p => p.Name.ToLower().Contains(searchTerm.ToLower()))
+            .ToListAsync();
     }
 }
