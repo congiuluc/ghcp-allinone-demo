@@ -104,8 +104,13 @@ public class ProductService : IProductService
     public async Task<IEnumerable<Product>> SearchProductsAsync(string searchTerm)
     {
         // TODO: DEMO - Type the implementation
+        if (string.IsNullOrWhiteSpace(searchTerm))
+        {
+            return Array.Empty<Product>();
+        }
+        
         return await _context.Products
-            .Where(p => p.Name.ToLower().Contains(searchTerm.ToLower()))
+            .Where(p => EF.Functions.Like(p.Name, $"%{searchTerm}%"))
             .ToListAsync();
     }
 }
