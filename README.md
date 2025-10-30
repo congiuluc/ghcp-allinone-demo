@@ -135,6 +135,14 @@ src/               ← Source code with DEMO TODO comments
 6. Find files with `// DEMO TODO:` comments
 7. Start typing and watch Copilot suggest!
 
+## 🔒 Security
+
+This repository has been security-hardened. See [SECURITY.md](SECURITY.md) for details on:
+- Dependency vulnerability fixes
+- Secure CORS configuration
+- Input validation improvements
+- Best practices for production deployment
+
 ---
 
 **No inline chat. No complex prompts. Just type code and watch Copilot help.**

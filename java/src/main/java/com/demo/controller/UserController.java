@@ -18,7 +18,7 @@ import java.util.Map;
  */
 @RestController
 @RequestMapping("/api/v1/users")
-@CrossOrigin(origins = "*", maxAge = 3600)
+@CrossOrigin(origins = "${allowed.origins:http://localhost:3000,http://localhost:5173}", maxAge = 3600)
 public class UserController {
 
     @Autowired
