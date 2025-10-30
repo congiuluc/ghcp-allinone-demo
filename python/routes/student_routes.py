@@ -5,8 +5,12 @@ Demonstrates Copilot generating REST endpoints and CRUD operations.
 
 from flask import Blueprint, request, jsonify
 from datetime import datetime
+import re
 from app import db
 from models.student import Student
+
+# Email validation pattern
+EMAIL_REGEX = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
 
 student_bp = Blueprint('students', __name__, url_prefix='/api/v1/students')
 
@@ -49,9 +53,7 @@ def create_student():
             return jsonify({'error': 'Missing required fields'}), 400
         
         # Validate email format
-        import re
-        email_regex = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
-        if not re.match(email_regex, data['email']):
+        if not re.match(EMAIL_REGEX, data['email']):
             return jsonify({'error': 'Invalid email format'}), 400
         
         # Validate GPA if provided
@@ -94,9 +96,7 @@ def update_student(student_id):
             student.name = data['name']
         if 'email' in data:
             # Validate email format
-            import re
-            email_regex = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
-            if not re.match(email_regex, data['email']):
+            if not re.match(EMAIL_REGEX, data['email']):
                 return jsonify({'error': 'Invalid email format'}), 400
             # Check if new email is unique
             existing = Student.query.filter_by(email=data['email']).first()
