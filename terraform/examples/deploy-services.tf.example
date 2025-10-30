@@ -1,0 +1,223 @@
+# Example: Deploying Applications with ECS Services
+# This file demonstrates how to use the ecs-service module to deploy applications
+
+# Note: This file should be used AFTER the main infrastructure is deployed
+# Uncomment and customize the examples below for your applications
+
+#------------------------------------------------------------------------------
+# Data Sources - Reference existing infrastructure
+#------------------------------------------------------------------------------
+
+# Reference the main infrastructure outputs
+# Uncomment these if running this separately from main infrastructure
+
+# data "terraform_remote_state" "infrastructure" {
+#   backend = "remote"
+#   config = {
+#     organization = "your-org-name"
+#     workspaces = {
+#       name = "ghcp-allinone-demo"
+#     }
+#   }
+# }
+
+#------------------------------------------------------------------------------
+# Example: Java Spring Boot Application
+#------------------------------------------------------------------------------
+
+# module "java_springboot_service" {
+#   source = "../modules/ecs-service"
+#
+#   # Application Configuration
+#   app_name        = "java-springboot"
+#   container_image = "${data.terraform_remote_state.infrastructure.outputs.ecr_repository_urls["java-springboot"]}:latest"
+#   container_port  = 8080
+#
+#   # CPU and Memory (256 CPU = 0.25 vCPU)
+#   cpu    = 512
+#   memory = 1024
+#
+#   # Scaling
+#   desired_count      = 2
+#   enable_autoscaling = true
+#   autoscaling_min_capacity = 2
+#   autoscaling_max_capacity = 5
+#   autoscaling_cpu_target    = 70
+#   autoscaling_memory_target = 80
+#
+#   # Health Check
+#   health_check_path                = "/actuator/health"
+#   health_check_interval            = 30
+#   health_check_timeout             = 5
+#   health_check_healthy_threshold   = 2
+#   health_check_unhealthy_threshold = 3
+#   health_check_matcher             = "200"
+#   health_check_command             = "curl -f http://localhost:8080/actuator/health || exit 1"
+#
+#   # Routing
+#   listener_rule_priority = 100
+#   path_patterns          = ["/api/java/*"]
+#
+#   # Environment Variables
+#   environment_variables = [
+#     {
+#       name  = "SPRING_PROFILES_ACTIVE"
+#       value = "prod"
+#     },
+#     {
+#       name  = "SERVER_PORT"
+#       value = "8080"
+#     }
+#   ]
+#
+#   # Infrastructure References
+#   vpc_id              = data.terraform_remote_state.infrastructure.outputs.vpc_id
+#   private_subnet_ids  = data.terraform_remote_state.infrastructure.outputs.private_subnet_ids
+#   security_group_id   = data.terraform_remote_state.infrastructure.outputs.ecs_task_security_group_id
+#   ecs_cluster_id      = data.terraform_remote_state.infrastructure.outputs.ecs_cluster_arn
+#   ecs_cluster_name    = data.terraform_remote_state.infrastructure.outputs.ecs_cluster_name
+#   listener_arn        = data.terraform_remote_state.infrastructure.outputs.alb_listener_http_arn
+#   execution_role_arn  = data.terraform_remote_state.infrastructure.outputs.ecs_task_execution_role_arn
+#   task_role_arn       = data.terraform_remote_state.infrastructure.outputs.ecs_task_role_arn
+#   log_group_name      = data.terraform_remote_state.infrastructure.outputs.cloudwatch_log_groups["java-springboot"]
+#
+#   # Common Configuration
+#   project_name = var.project_name
+#   environment  = var.environment
+#   aws_region   = var.aws_region
+#   common_tags  = var.common_tags
+# }
+
+#------------------------------------------------------------------------------
+# Example: Python Flask Application
+#------------------------------------------------------------------------------
+
+# module "python_flask_service" {
+#   source = "../modules/ecs-service"
+#
+#   # Application Configuration
+#   app_name        = "python-flask"
+#   container_image = "${data.terraform_remote_state.infrastructure.outputs.ecr_repository_urls["python-flask"]}:latest"
+#   container_port  = 5000
+#
+#   # CPU and Memory
+#   cpu    = 256
+#   memory = 512
+#
+#   # Scaling
+#   desired_count = 1
+#
+#   # Health Check
+#   health_check_path     = "/health"
+#   health_check_interval = 30
+#   health_check_matcher  = "200"
+#   health_check_command  = "curl -f http://localhost:5000/health || exit 1"
+#
+#   # Routing
+#   listener_rule_priority = 110
+#   path_patterns          = ["/api/python/*"]
+#
+#   # Environment Variables
+#   environment_variables = [
+#     {
+#       name  = "FLASK_ENV"
+#       value = "production"
+#     },
+#     {
+#       name  = "FLASK_APP"
+#       value = "app.py"
+#     }
+#   ]
+#
+#   # Infrastructure References (same as above)
+#   vpc_id              = data.terraform_remote_state.infrastructure.outputs.vpc_id
+#   private_subnet_ids  = data.terraform_remote_state.infrastructure.outputs.private_subnet_ids
+#   security_group_id   = data.terraform_remote_state.infrastructure.outputs.ecs_task_security_group_id
+#   ecs_cluster_id      = data.terraform_remote_state.infrastructure.outputs.ecs_cluster_arn
+#   ecs_cluster_name    = data.terraform_remote_state.infrastructure.outputs.ecs_cluster_name
+#   listener_arn        = data.terraform_remote_state.infrastructure.outputs.alb_listener_http_arn
+#   execution_role_arn  = data.terraform_remote_state.infrastructure.outputs.ecs_task_execution_role_arn
+#   task_role_arn       = data.terraform_remote_state.infrastructure.outputs.ecs_task_role_arn
+#   log_group_name      = data.terraform_remote_state.infrastructure.outputs.cloudwatch_log_groups["python-flask"]
+#
+#   project_name = var.project_name
+#   environment  = var.environment
+#   aws_region   = var.aws_region
+#   common_tags  = var.common_tags
+# }
+
+#------------------------------------------------------------------------------
+# Example: React Application
+#------------------------------------------------------------------------------
+
+# module "react_app_service" {
+#   source = "../modules/ecs-service"
+#
+#   # Application Configuration
+#   app_name        = "react-app"
+#   container_image = "${data.terraform_remote_state.infrastructure.outputs.ecr_repository_urls["react-app"]}:latest"
+#   container_port  = 3000
+#
+#   # CPU and Memory
+#   cpu    = 256
+#   memory = 512
+#
+#   # Scaling
+#   desired_count = 2
+#
+#   # Health Check
+#   health_check_path     = "/"
+#   health_check_interval = 30
+#   health_check_matcher  = "200-399"
+#
+#   # Routing
+#   listener_rule_priority = 120
+#   path_patterns          = ["/app/react/*", "/static/*"]
+#
+#   # Environment Variables
+#   environment_variables = [
+#     {
+#       name  = "NODE_ENV"
+#       value = "production"
+#     },
+#     {
+#       name  = "PORT"
+#       value = "3000"
+#     }
+#   ]
+#
+#   # Infrastructure References (same as above)
+#   vpc_id              = data.terraform_remote_state.infrastructure.outputs.vpc_id
+#   private_subnet_ids  = data.terraform_remote_state.infrastructure.outputs.private_subnet_ids
+#   security_group_id   = data.terraform_remote_state.infrastructure.outputs.ecs_task_security_group_id
+#   ecs_cluster_id      = data.terraform_remote_state.infrastructure.outputs.ecs_cluster_arn
+#   ecs_cluster_name    = data.terraform_remote_state.infrastructure.outputs.ecs_cluster_name
+#   listener_arn        = data.terraform_remote_state.infrastructure.outputs.alb_listener_http_arn
+#   execution_role_arn  = data.terraform_remote_state.infrastructure.outputs.ecs_task_execution_role_arn
+#   task_role_arn       = data.terraform_remote_state.infrastructure.outputs.ecs_task_role_arn
+#   log_group_name      = data.terraform_remote_state.infrastructure.outputs.cloudwatch_log_groups["react-app"]
+#
+#   project_name = var.project_name
+#   environment  = var.environment
+#   aws_region   = var.aws_region
+#   common_tags  = var.common_tags
+# }
+
+#------------------------------------------------------------------------------
+# Outputs
+#------------------------------------------------------------------------------
+
+# output "java_service_url" {
+#   description = "URL for Java Spring Boot application"
+#   value       = "http://${data.terraform_remote_state.infrastructure.outputs.alb_dns_name}/api/java/"
+# }
+#
+# output "python_service_url" {
+#   description = "URL for Python Flask application"
+#   value       = "http://${data.terraform_remote_state.infrastructure.outputs.alb_dns_name}/api/python/"
+# }
+#
+# output "react_service_url" {
+#   description = "URL for React application"
+#   value       = "http://${data.terraform_remote_state.infrastructure.outputs.alb_dns_name}/app/react/"
+# }

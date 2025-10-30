@@ -1,0 +1,102 @@
+# Example Terraform Variables Configuration
+# Copy this file to terraform.tfvars and customize the values for your environment
+# File: terraform.tfvars.example
+
+#------------------------------------------------------------------------------
+# Required Variables (must be set)
+#------------------------------------------------------------------------------
+
+# AWS region where resources will be deployed
+aws_region = "us-east-1"
+
+# Environment name (dev, staging, prod)
+environment = "dev"
+
+# Project name used for resource naming
+project_name = "ghcp-demo"
+
+#------------------------------------------------------------------------------
+# Networking Configuration
+#------------------------------------------------------------------------------
+
+# VPC CIDR block
+vpc_cidr = "10.0.0.0/16"
+
+# Availability zones (must match the selected region)
+availability_zones = ["us-east-1a", "us-east-1b", "us-east-1c"]
+
+# Public subnet CIDR blocks (one per AZ)
+public_subnet_cidrs = ["10.0.101.0/24", "10.0.102.0/24", "10.0.103.0/24"]
+
+# Private subnet CIDR blocks (one per AZ)
+private_subnet_cidrs = ["10.0.1.0/24", "10.0.2.0/24", "10.0.3.0/24"]
+
+#------------------------------------------------------------------------------
+# Application Configuration
+#------------------------------------------------------------------------------
+
+# List of applications to deploy
+application_names = [
+  "java-springboot",
+  "dotnet-aspnetcore",
+  "python-flask",
+  "typescript-express",
+  "react-app",
+  "angular-app",
+  "cobol-app"
+]
+
+#------------------------------------------------------------------------------
+# Monitoring and Logging
+#------------------------------------------------------------------------------
+
+# Enable CloudWatch Container Insights
+enable_container_insights = true
+
+# CloudWatch log retention period (in days)
+log_retention_days = 7
+
+#------------------------------------------------------------------------------
+# ECR Configuration
+#------------------------------------------------------------------------------
+
+# Number of tagged images to retain in ECR
+ecr_image_count = 10
+
+# Days to retain untagged images
+ecr_untagged_days = 7
+
+#------------------------------------------------------------------------------
+# Resource Tags
+#------------------------------------------------------------------------------
+
+common_tags = {
+  Project     = "ghcp-allinone-demo"
+  ManagedBy   = "Terraform"
+  Repository  = "ghcp-allinone-demo"
+  Owner       = "DevOps"
+  CostCenter  = "Engineering"
+  Compliance  = "None"
+}
+
+#------------------------------------------------------------------------------
+# Environment-Specific Examples
+#------------------------------------------------------------------------------
+
+# Development Environment Example:
+# environment               = "dev"
+# enable_container_insights = false
+# log_retention_days        = 7
+# ecr_image_count           = 5
+
+# Staging Environment Example:
+# environment               = "staging"
+# enable_container_insights = true
+# log_retention_days        = 14
+# ecr_image_count           = 10
+
+# Production Environment Example:
+# environment               = "prod"
+# enable_container_insights = true
+# log_retention_days        = 30
+# ecr_image_count           = 20

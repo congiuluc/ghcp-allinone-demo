@@ -125,6 +125,39 @@ src/               ← Source code with DEMO TODO comments
 - Code generation showcases
 - Learning how developers use Copilot
 
+## ☁️ Infrastructure as Code
+
+This repository includes **Terraform configuration** to deploy these demo applications to AWS:
+
+📁 **Location**: [`terraform/`](terraform/)
+
+**What's included:**
+- Complete AWS infrastructure (VPC, ECS Fargate, ALB, ECR, CloudWatch)
+- Multi-environment support (dev, staging, prod)
+- Security best practices and monitoring
+- Comprehensive documentation and deployment guides
+
+**Quick start:**
+```bash
+cd terraform/
+cp terraform.tfvars.example terraform.tfvars
+terraform init
+terraform apply
+```
+
+📚 **Documentation:**
+- [Terraform README](terraform/README.md) - Complete infrastructure guide
+- [Deployment Guide](terraform/DEPLOYMENT_GUIDE.md) - Step-by-step deployment
+
+**Features:**
+- ✅ ECS Fargate serverless containers
+- ✅ Application Load Balancer with health checks
+- ✅ ECR repositories for each application
+- ✅ CloudWatch logging and monitoring
+- ✅ Multi-AZ high availability
+- ✅ Auto-scaling support
+- ✅ Security groups and IAM roles
+
 ## 🚀 Get Started
 
 1. Pick a language you know
